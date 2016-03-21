@@ -8,7 +8,7 @@ export default class Scene {
         this.session = session
         this.random = new Randomizer()
         this.steps = []
-        this.step = -1
+        this.step = 0
     }
 
     get step() {
@@ -20,6 +20,7 @@ export default class Scene {
     }
 
     next() {
+        console.log("step=", this.step, "all", this.steps)
         if (this.step >= otsimo.kv.game.session_step) {
             return false
         }

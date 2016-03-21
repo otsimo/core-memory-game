@@ -54,9 +54,10 @@ export class Randomizer {
         let remain = otsimo.kv.game.session_step - n;
         let f = this.sizes.filter(s => {
             let is_big = s > remain;
-            let is_small = (remain - s) < min
+            let is_small = ((remain - s) == 0) ? false : (remain - s) < min
             return !is_big && !is_small;
         });
+        console.log("randomAmount:", "pre", pre, "total", n, "remain", remain, "available", f);
         return f[Math.floor(Math.random() * f.length)]
     }
 
@@ -105,19 +106,19 @@ export class Randomizer {
     }
 
     next(preSteps) {
-        if (this.values.size == 0) {
-            this.values = new Set(kinds.values());
-        }
-
         let items = []
         let n = this.randomAmount(preSteps);
-
+        let used = []
         for (let i = 0; i < n; i++) {
+            if (this.values.size == 0) {
+                this.values = new Set(this.kinds.values());
+            }
             let k = this.randomKind()
-            let item1 = this.randomItemOfKind(this._to, k, [])
-            let item2 = this.randomItemOfKind(this._from, k, [])
+            let item1 = this.randomItemOfKind(this._to, k, used)
+            let item2 = this.randomItemOfKind(this._from, k, used)
             items.push(item1)
             items.push(item2)
+            used.push(k);
             this.values.delete(k);
         }
 

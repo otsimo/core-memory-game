@@ -89,6 +89,11 @@
             "name": "card-bg-2",
             "type": "image",
             "path": "img/card/card-bg-2.png"
+        },
+        {
+            "name": "blue_audio",
+            "type": "audio",
+            "path": "audio/en/blue.mp3"
         }
     ],
     "game": {
