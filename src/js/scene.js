@@ -33,18 +33,32 @@ export default class Scene {
             layout: next.layout.id,
             cardBackground: next.deck
         })
-        
+
         this.deck = deck;
         this.gameStep = next;
 
-        deck.itemSelected.add(this.onItemSelected, this)
+        deck.cardsOpened.add(this.onCardsSelected, this)
         this.announce(-100, 300)
 
         this.session.startStep();
         return true;
     }
 
-    onItemSelected(card) {
+    onCardsSelected(card1, card2) {
+        if (this.gameStep.done) {
+            return
+        }
+        if (card1.kind == card2.kind) {
+            let dur = this.deck.collectCards()
+            if (this.deck.remainingCards == 0) {
+                this.gameStep.done = true
+                let self = this
+                setTimeout(() => self.hide(), dur * 2);
+            }
+        } else {
+            this.deck.closeCards()
+        }
+        /*
         if (this.gameStep.done) {
             return
         }
@@ -67,7 +81,7 @@ export default class Scene {
                 this.deck.hideAnItem(card.id)
             }
             this.session.wrongInput(card.item, card.wrongAnswerCount)
-        }
+        }*/
     }
 
     announce(leaveY, leaveTime) {

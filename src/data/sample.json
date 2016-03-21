@@ -99,7 +99,11 @@
         "scene_leave_duration": 500,
         "balloon_color_options": {
             "luminosity": "bright"
-        }
+        },
+        "card_hide_duration": 75,
+        "card_show_duration": 125,
+        "card_turnoff_duration": 125,
+        "card_collect_duration": 300
     },
     "layouts": [
         {

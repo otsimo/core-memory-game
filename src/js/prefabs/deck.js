@@ -6,9 +6,11 @@ export default class Deck extends Phaser.Group {
         this.items = items
         this.cards = []
         this.layoutId = layout
-        this.itemSelected = new Phaser.Signal()
         this.cardBackground = cardBackground
         this.initialize()
+        this.openedCards = []
+        this.cardsOpened = new Phaser.Signal()
+        this.remainingCards = items.length
     }
 
     initialize() {
@@ -29,6 +31,7 @@ export default class Deck extends Phaser.Group {
                 background: this.cardBackground,
                 anchor: layout.cell_anchor
             });
+            card.onInputDown.add(this.clickListener, { card: card, deck: this });
 
             this.add(card);
             this.cards.push(card);
@@ -60,5 +63,36 @@ export default class Deck extends Phaser.Group {
             .to({ x: this.hiddenPos.x, y: this.hiddenPos.y }, otsimo.kv.game.scene_leave_duration, Phaser.Easing.Circular.In);
 
         tween.start();
+    }
+
+    clickListener() {
+        let dur = this.card.toggle()
+        let self = this.deck
+        setTimeout(() => {
+            self.openedCards.push(this.card)
+            if (self.openedCards.length == 2) {
+                self.cardsOpened.dispatch(self.openedCards[0], self.openedCards[1])
+            }
+        }, dur * 2);
+    }
+
+    closeCards() {
+        for (let a of this.openedCards) {
+            a.turnOff();
+        }
+        this.openedCards = [];
+    }
+
+    collectCards() {
+        let dur = 0
+        for (let a of this.openedCards) {
+            let d = a.collect();
+            if (d > dur) {
+                dur = d
+            }
+            this.remainingCards = this.remainingCards - 1
+        }
+        this.openedCards = [];
+        return dur;
     }
 }

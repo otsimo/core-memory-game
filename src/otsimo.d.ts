@@ -35,6 +35,11 @@ interface OtsimoGame {
     scene_leave_duration: number;
 
     balloon_color_options: any;
+
+    card_hide_duration: number;
+    card_show_duration: number;
+    card_turnoff_duration: number;
+    card_collect_duration: number;
 }
 
 interface DeckLayout {
