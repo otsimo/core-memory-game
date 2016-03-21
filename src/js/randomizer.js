@@ -83,12 +83,14 @@ export class Randomizer {
     randomLayout(size) {
         let ks = []
         for (let [key, value] of this.layouts) {
-            ks.push({ "id": key, "amount": value });
+            if (value === size) {
+                ks.push({ "id": key, "amount": value });
+            }
         }
 
         if (ks.length == 0) {
             for (let i of otsimo.kv.layouts) {
-                if (i.num_of_kinds == size) {
+                if (i.num_of_kinds === size) {
                     ks.push({ "id": i.id, "amount": i.num_of_kinds });
                     this.layouts.set(i.id, i.num_of_kinds);
                 }
@@ -96,7 +98,7 @@ export class Randomizer {
         }
         let rn = Math.floor(Math.random() * ks.length);
         let k = ks[rn];
-        console.log("random n", size, rn, ks.length, otsimo.kv.layouts)
+        console.log("random", "size", size, "randomNum", rn, "ks", ks, "layouts", otsimo.kv.layouts)
         this.layouts.delete(k.id)
         return k
     }

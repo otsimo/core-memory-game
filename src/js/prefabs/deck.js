@@ -22,7 +22,6 @@ export default class Deck extends Phaser.Group {
         for (let i = 0; i < this.items.length; i++) {
             let item = this.items[i];
             let ii = layout.items[i]
-
             let card = new Card({
                 game: this.game,
                 x: sx + ii.x,
