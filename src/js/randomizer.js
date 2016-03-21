@@ -107,7 +107,7 @@ export class Randomizer {
         return otsimo.kv.card_backgrounds[Math.floor(Math.random() * otsimo.kv.card_backgrounds.length)]
     }
 
-    next(preSteps) {
+    next(preSteps, callback) {
         let items = []
         let n = this.randomAmount(preSteps);
         let used = []
@@ -124,11 +124,13 @@ export class Randomizer {
             this.values.delete(k);
         }
 
-        return new GameStep({
+        let gs = new GameStep({
             amount: n,
             layout: this.randomLayout(n),
             items: shuffle(items),
             deck: this.randomDeckBackground()
         });
+
+        callback(gs);
     }
 }

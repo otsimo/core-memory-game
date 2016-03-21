@@ -24,24 +24,25 @@ export default class Scene {
         if (this.step >= otsimo.kv.game.session_step) {
             return false
         }
-        let next = this.random.next(this.steps);
-        this.step += next.amount;
-        this.steps.push(next.amount);
+        this.random.next(this.steps, (next) => {
+            this.step += next.amount;
+            this.steps.push(next.amount);
 
-        let deck = new Deck({
-            game: otsimo.game,
-            items: next.items,
-            layout: next.layout.id,
-            cardBackground: next.deck
-        })
+            let deck = new Deck({
+                game: otsimo.game,
+                items: next.items,
+                layout: next.layout.id,
+                cardBackground: next.deck
+            })
 
-        this.deck = deck;
-        this.gameStep = next;
+            this.deck = deck;
+            this.gameStep = next;
 
-        deck.cardsOpened.add(this.onCardsSelected, this)
-        this.announce(-100, 300)
+            deck.cardsOpened.add(this.onCardsSelected, this)
+            this.announce(-100, 300)
 
-        this.session.startStep();
+            this.session.startStep();
+        });
         return true;
     }
 
