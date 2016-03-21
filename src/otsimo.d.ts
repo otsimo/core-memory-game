@@ -34,7 +34,7 @@ interface OtsimoGame {
     scene_enter_duration: number;
     scene_leave_duration: number;
 
-    balloon_color_options: any;
+    balloon_options: any;
 
     card_hide_duration: number;
     card_show_duration: number;
