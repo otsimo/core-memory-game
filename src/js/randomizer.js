@@ -42,9 +42,6 @@ export class Randomizer {
         let min = 1000
         for (let a of pre) {
             n = n + a
-            if (a < min) {
-                min = a
-            }
         }
         for (let a of this.sizes) {
             if (a < min) {
@@ -123,7 +120,6 @@ export class Randomizer {
             used.push(k);
             this.values.delete(k);
         }
-
         let gs = new GameStep({
             amount: n,
             layout: this.randomLayout(n),
