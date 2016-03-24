@@ -1,13 +1,14 @@
 {
-  "name": "core-memory-game",
+  "name": "otsimo-memory-game",
   "version": "1.0.0",
-  "description": "",
+  "description": "Otsimo memory game package without assets",
+  "main": "game.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/otsimo/core-memory-game.git"
+    "url": "https://github.com/otsimo/core-memory-game.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Sercan Değirmenci <sercan@otsimo.com>",
+  "license": "Apache 2",
   "homepage": "https://github.com/otsimo/core-memory-game",
   "dependencies": {
     "otsimo": "^0.3.0",
@@ -33,7 +34,6 @@
     "gulp-imagemin": "^2.4.0",
     "gulp-json-minify": "^1.0.1",
     "gulp-replace": "^0.5.4",
-    "gulp-rev-all": "^0.8.22",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
     "gulp-usemin": "^0.3.16",
