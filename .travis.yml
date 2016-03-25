@@ -8,9 +8,4 @@ install:
 script: npm run-script test
 before_install:
 - openssl aes-256-cbc -K $encrypted_63b41d8350f9_key -iv $encrypted_63b41d8350f9_iv -in .npmrc.enc -out ~/.npmrc -d
-deploy:
-  provider: script
-  skip_cleanup: true
-  script: publish.sh
-  on:
-    tags: true
+after_success: sh publish.sh
