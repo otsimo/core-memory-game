@@ -1,6 +1,6 @@
 {
     "name": "otsimo-memory-game",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Otsimo memory game package without assets",
     "main": "game.js",
     "repository": {
@@ -8,7 +8,7 @@
         "url": "https://github.com/otsimo/core-memory-game.git"
     },
     "author": "Sercan Değirmenci <sercan@otsimo.com>",
-    "license": "Apache 2",
+    "license": "Apache-2.0",
     "homepage": "https://github.com/otsimo/core-memory-game",
     "dependencies": {
         "otsimo": "^1.0.0",
