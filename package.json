@@ -18,7 +18,8 @@
     "scripts": {
         "test": "eslint js/*.js",
         "build": "gulp build",
-        "dev": "gulp"
+        "dev": "gulp",
+        "buildandpublish": "sh publish.sh"
     },
     "devDependencies": {
         "babel-core": "^6.3.21",
