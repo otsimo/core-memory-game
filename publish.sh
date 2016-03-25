@@ -1,4 +1,6 @@
 #!/bin/sh
+npm whoami
+
 if [ -d builds/npm ] ; then
     rm -rf builds/npm
 fi
