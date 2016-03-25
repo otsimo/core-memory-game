@@ -16,7 +16,7 @@
         "sprintf-js": "^1.0.3"
     },
     "scripts": {
-        "test": "eslint js/*.js",
+        "test": "eslint src/js/*.js",
         "build": "gulp build",
         "dev": "gulp",
         "buildandpublish": "sh publish.sh"

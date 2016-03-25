@@ -1,4 +1,3 @@
-import {shuffle} from "./utils"
 import {Randomizer} from "./randomizer"
 import Deck from "./prefabs/deck"
 
@@ -92,7 +91,7 @@ export default class Scene {
 
         text.anchor.set(0.5, 0.5);
         text.alpha = 0.1;
-        text.fill = '#000000'
+        text.fill = "#000000"
         this.announceText = text;
 
         otsimo.game.add.tween(text).to({ alpha: 1 }, 100, "Linear", true);

@@ -1,4 +1,4 @@
-import * as states from './states';
+import * as states from "./states";
 
 otsimo.onSettingsChanged(function (settings, sound) {
     otsimo.game.sound.mute = !sound
@@ -7,12 +7,12 @@ otsimo.onSettingsChanged(function (settings, sound) {
 
 otsimo.run(function () {
     
-    let game = new Phaser.Game(otsimo.width, otsimo.height, Phaser.AUTO, 'gameContainer');
+    let game = new Phaser.Game(otsimo.width, otsimo.height, Phaser.AUTO, "gameContainer");
     Object.keys(states).forEach(state => game.state.add(state, states[state]));
 
     otsimo.game = game;
 
-    game.state.start('Load');
+    game.state.start("Load");
 });
 
 

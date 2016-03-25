@@ -20,11 +20,11 @@ export default class Session {
     wrongInput(item, amount) {
         this.wrongAnswerStep += 1
         this.wrongAnswerTotal += 1
-        console.log("wrong input")
+        console.log("wrong input", item, amount)
     }
 
     correctInput(item, answerItem) {
-        console.log("correct input")
+        console.log("correct input", item, answerItem)
     }
 
     debug(game) {
