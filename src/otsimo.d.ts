@@ -28,6 +28,7 @@ interface DeckItem {
 
 interface OtsimoGame {
     session_step: number;
+    step_score: number;
     deck1: string;
     deck2: string;
 
