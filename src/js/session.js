@@ -21,7 +21,7 @@ export default class Session {
             score: this.score,
             duration: delta,
             failure: this.wrongAnswerTotal,
-            success: this.correctAnswerTotal,
+            success: this.correctAnswerTotal
         }
 
         otsimo.customevent("game:session:end", payload)
@@ -30,6 +30,7 @@ export default class Session {
     }
 
     startStep() {
+        this.incrementHint(this.hintStep);
         this.wrongAnswerStep = 0;
         this.hintStep = 0;
         this.stepScore = otsimo.kv.game.step_score;
@@ -97,7 +98,7 @@ export default class Session {
                 this.stepScore = 0;
             }
         }
-        this.hintTotal += (tableHintStep - this.hintStep);
-        this.hintStep = tableHintStep;
+        this.hintTotal += this.hintStep;
     }
+
 }

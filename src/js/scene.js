@@ -19,6 +19,7 @@ export default class Scene {
     }
 
     next() {
+        this.killTimer();
         console.log("step=", this.step, "all", this.steps)
         if (this.step >= otsimo.kv.game.session_step) {
             return false
@@ -47,10 +48,13 @@ export default class Scene {
 
     onCardsSelected(card1, card2) {
         console.log("cards selected are: ", card1, card2);
+        this.killTimer();
         if (this.gameStep.done) {
             return
         }
         if (card1.kind == card2.kind) {
+            console.log("correct answer, cards: ", card1, card2);
+            this.session.correctInput(card1.item,card2.item);
             let dur = this.deck.collectCards()
             if (this.deck.remainingCards == 0) {
                 this.gameStep.done = true
@@ -58,6 +62,7 @@ export default class Scene {
                 setTimeout(() => self.hide(), dur * 2);
             }
         } else {
+            this.session.wrongInput(card1.item, card2.item);
             this.deck.closeCards()
         }
         /*
@@ -84,6 +89,7 @@ export default class Scene {
             }
             this.session.wrongInput(card.item, card.wrongAnswerCount)
         }*/
+        this.createTimer();
     }
 
     announce(leaveY, leaveTime) {
@@ -127,13 +133,19 @@ export default class Scene {
 
     createTimer () {
         console.log("creating timer");
-        otsimo.game.time.events.add(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
+        this.timer = otsimo.game.time.events.add(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
     }
 
     showHint() {
+        this.session.hintStep++;
+        if (!otsimo.settings.show_hint) {
+            console.log("show hint is false");
+            return;
+        }
+        this.killTimer();
         console.log("showing hint");
         let randCard = this.randomOnScene();
-        randCard.turnOn();
+        randCard.turnOn(false);
         otsimo.game.time.events.add(Phaser.Timer.SECOND, randCard.turnOff, randCard);
         otsimo.game.time.events.add(Phaser.Timer.SECOND, this.createTimer, this);
     }
@@ -142,7 +154,17 @@ export default class Scene {
         console.log("items are: ", this.deck.cards);
         let randNum = Math.floor(Math.random() * this.deck.cards.length);
         console.log("returning card: ", this.deck.cards[randNum]);
+        console.log("opened cards: ", this.deck.openedCards);
+        console.log("checking", this.deck.cards[randNum] in this.deck.openedCards);
+
+
         return this.deck.cards[randNum];
+    }
+
+    killTimer () {
+        if (this.timer) {
+            otsimo.game.time.events.remove(this.timer);
+        }
     }
 
 }

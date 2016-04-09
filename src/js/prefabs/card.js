@@ -40,7 +40,7 @@ export default class Card extends Phaser.Group {
     }
 
     playSound() {
-        this.game.sound.play(this.item.audio);
+        otsimo.game.sound.play(this.item.audio);
     }
 
     highlight() {
@@ -50,7 +50,7 @@ export default class Card extends Phaser.Group {
         return dur
     }
 
-    turnOn() {
+    turnOn(sound) {
         this.front.scale.x = 0
         this.front.visible = true
 
@@ -63,7 +63,9 @@ export default class Card extends Phaser.Group {
         back.start();
         this.isClosed = false
 
-        this.playSound();
+        if (sound) {
+            this.playSound();
+        }
         return otsimo.kv.game.card_hide_duration + otsimo.kv.game.card_show_duration
     }
 
