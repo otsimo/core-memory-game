@@ -1,6 +1,6 @@
 {
     "name": "otsimo-memory-game",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "description": "Otsimo memory game package without assets",
     "main": "game.js",
     "repository": {
