@@ -46,6 +46,7 @@ export default class Scene {
     }
 
     onCardsSelected(card1, card2) {
+        console.log("cards selected are: ", card1, card2);
         if (this.gameStep.done) {
             return
         }
@@ -104,6 +105,7 @@ export default class Scene {
         setTimeout(() => {
             deck.moveIn();
         }, 1600);
+        otsimo.game.time.events.add(1600, this.createTimer, this);
     }
 
     hide() {
@@ -123,8 +125,24 @@ export default class Scene {
         }, dur);
     }
 
-    showHint() {
+    createTimer () {
+        console.log("creating timer");
+        otsimo.game.time.events.add(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
+    }
 
+    showHint() {
+        console.log("showing hint");
+        let randCard = this.randomOnScene();
+        randCard.turnOn();
+        otsimo.game.time.events.add(Phaser.Timer.SECOND, randCard.turnOff, randCard);
+        otsimo.game.time.events.add(Phaser.Timer.SECOND, this.createTimer, this);
+    }
+
+    randomOnScene () {
+        console.log("items are: ", this.deck.cards);
+        let randNum = Math.floor(Math.random() * this.deck.cards.length);
+        console.log("returning card: ", this.deck.cards[randNum]);
+        return this.deck.cards[randNum];
     }
 
 }
