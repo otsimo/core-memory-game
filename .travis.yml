@@ -1,11 +1,16 @@
 language: node_js
 node_js:
-  - "5.1"
+- '5.1'
 sudo: false
 install:
-  - npm install
-  - npm install eslint
+- npm install
+- npm install eslint
 script: npm run-script test
 before_install:
-- openssl aes-256-cbc -K $encrypted_63b41d8350f9_key -iv $encrypted_63b41d8350f9_iv -in .npmrc.enc -out ~/.npmrc -d
+- openssl aes-256-cbc -K $encrypted_63b41d8350f9_key -iv $encrypted_63b41d8350f9_iv
+  -in .npmrc.enc -out ~/.npmrc -d
 after_success: sh publish.sh
+notifications:
+  email: false
+  slack:
+    secure: NgvpjzwLzfJvxdEbQla9nMo9lbHZRUyuinvf0tB5jae+tM0a9J+Bc363KSSnQ14/5dLo5UOwCtiG5f1jj4GmDmtxM07IJgnPhraNLJ0BPGC0nRGLs6srPNqfDzcprt5n+4zRxigREMp0g32oneRd1nvOTQirxGqt4YmXN0VG5m0Y1WKkxge0Jpmq2WQwWtPYkiXqL0nkWRH9q+LWdjLaAcOjODUa6sFEtvHnsOM/X0udcAuS4N1t/EGBAK1WNImgg/bhWVptOL1f/CqN0AcALsNVzs1Am5/mPlh2+OXZKWAWghA7a+rzycn55hVfQKXCYHkcd1CE6AS2jyPxOfXrQKia9AxHGmbIThOKk1Z4AyPhYC+r51Sxq/kAEJRnQmIMsx5UgR8/qMsHlatRIvlMyptcFObVDRXQkOV+c//06F06okimayt27IojHCgKaY3NhiulAk0z0M8roudFcbQJStcq36Tw4Ig4Ej0s2zriBd1ySNaESHS5RKYk8cmXtdlC7lIG/W70oAaT4nHco2xrwHsMFosARe4y7+iNxR2hdWA9yU7RLcIyCG/UVKOlkZ/Sn5c4ivpGC3S0L/Abcli0CJ4HRJQ7WSYjyPm2V68HJ+dRcHSS5h4znJLQ2aRT7UuV/Zhwyv2e7l4KFY6BLHA1VWWUXLPp50gnAfLh1Agrw4Y=
