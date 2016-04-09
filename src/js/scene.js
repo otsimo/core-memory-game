@@ -52,8 +52,7 @@ export default class Scene {
         if (this.gameStep.done) {
             return
         }
-        if (card1.kind == card2.kind) {
-            console.log("correct answer, cards: ", card1, card2);
+        if (card1.kind == card2.kind && card1.id != card2.id) {
             this.session.correctInput(card1.item,card2.item);
             let dur = this.deck.collectCards()
             if (this.deck.remainingCards == 0) {
@@ -158,7 +157,9 @@ export default class Scene {
         console.log("returning card: ", this.deck.cards[randNum]);
         console.log("opened cards: ", this.deck.openedCards);
         console.log("checking", this.deck.cards[randNum] in this.deck.openedCards);
-
+        if (this.deck.cards[randNum] in this.deck.openedCards) {
+            randNum = Math.floor(Math.random() * this.deck.cards.length);
+        }
 
         return this.deck.cards[randNum];
     }

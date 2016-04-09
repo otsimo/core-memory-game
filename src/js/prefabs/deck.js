@@ -73,16 +73,20 @@ export default class Deck extends Phaser.Group {
                 self.cardsOpened.dispatch(self.openedCards[0], self.openedCards[1])
             }
         }, dur * 2);
+        console.log("push to openedcards. openedcards is: ", self.openedCards);
     }
 
     closeCards() {
-        for (let a of this.openedCards) {
-            a.turnOff();
+        if (!(this.openedCards[0].id == this.openedCards[1].id)) {
+            for (let a of this.openedCards) {
+                a.turnOff();
+            }
         }
         this.openedCards = [];
     }
 
     collectCards() {
+        console.log("collect cards");
         let dur = 0
         for (let a of this.openedCards) {
             let d = a.collect();
