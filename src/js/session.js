@@ -22,15 +22,14 @@ export default class Session {
             duration: delta,
             failure: this.wrongAnswerTotal,
             success: this.correctAnswerTotal
-        }
+        };
 
-        otsimo.customevent("game:session:end", payload)
+        otsimo.customevent("game:session:end", payload);
         
         console.log("end session, post to analytics", payload)
     }
 
     startStep() {
-        this.incrementHint(this.hintStep);
         this.wrongAnswerStep = 0;
         this.hintStep = 0;
         this.stepScore = otsimo.kv.game.step_score;
@@ -50,7 +49,7 @@ export default class Session {
             kind: item.kind,
             time: now - this.stepStartTime,
             delta: now - this.previousInput
-        }
+        };
         this.previousInput = now;
 
         otsimo.customevent("game:failure", payload);
@@ -60,14 +59,13 @@ export default class Session {
 
     correctInput(item, answerItem) {
         let now = Date.now();
-        this.score += this.stepScore;
         this.correctAnswerTotal += 1;
         let payload = {
             item: item.id,
             kind: item.kind,
             time: now - this.stepStartTime,
             delta: now - this.previousInput
-        }
+        };
         this.previousInput = now;
         
         otsimo.customevent("game:success", payload);
@@ -90,15 +88,16 @@ export default class Session {
         }
     }
 
-    incrementHint(tableHintStep) {
-        let change = tableHintStep - this.hintStep;
-        if (this.stepScore > 0) {
-            this.stepScore -= change;
-            if (this.stepScore < 0) {
-                this.stepScore = 0;
-            }
-        }
+    incrementHint() {
         this.hintTotal += this.hintStep;
+        this.stepScore-= this.hintStep;
+        if (this.stepScore < 0) {
+            this.stepScore = 0;
+        }
+    }
+
+    addScore () {
+        this.score += this.stepScore;
     }
 
 }

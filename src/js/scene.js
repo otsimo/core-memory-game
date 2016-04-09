@@ -122,6 +122,8 @@ export default class Scene {
         otsimo.game.add.tween(at).to({ y: 0 }, dur / 2, Phaser.Easing.Circular.In, true)
 
         let self = this
+        this.session.incrementHint();
+        this.session.addScore();
         setTimeout(() => {
             self.deck.destroy(true)
             at.destroy();
