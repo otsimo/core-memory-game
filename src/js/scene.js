@@ -52,7 +52,7 @@ export default class Scene {
         if (this.gameStep.done) {
             return
         }
-        if (card1.kind == card2.kind && card1.id != card2.id) {
+        if (card1.kind == card2.kind) {
             this.session.correctInput(card1.item,card2.item);
             let dur = this.deck.collectCards()
             if (this.deck.remainingCards == 0) {

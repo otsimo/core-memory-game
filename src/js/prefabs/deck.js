@@ -65,10 +65,22 @@ export default class Deck extends Phaser.Group {
     }
 
     clickListener() {
-        let dur = this.card.toggle()
         let self = this.deck
+        if (this.card.isAnimating) {
+            return;
+        }
+        if (self.openedCards.length >= 2) {
+            return;
+        }
+        if (self.openedCards.length == 1) {
+            let firstOne = self.openedCards[0];
+            if (firstOne.id == this.card.id) {
+                return
+            }
+        }
+        let dur = this.card.toggle()
+        self.openedCards.push(this.card)
         setTimeout(() => {
-            self.openedCards.push(this.card)
             if (self.openedCards.length == 2) {
                 self.cardsOpened.dispatch(self.openedCards[0], self.openedCards[1])
             }
@@ -77,10 +89,8 @@ export default class Deck extends Phaser.Group {
     }
 
     closeCards() {
-        if (!(this.openedCards[0].id == this.openedCards[1].id)) {
-            for (let a of this.openedCards) {
-                a.turnOff();
-            }
+        for (let a of this.openedCards) {
+            a.turnOff();
         }
         this.openedCards = [];
     }

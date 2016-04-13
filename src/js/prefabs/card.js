@@ -21,6 +21,7 @@ export default class Card extends Phaser.Group {
         front.tint = parseInt(item.tint, 16);
         front.events.onInputDown.add(this.bodyTouched, this)
 
+        this.isAnimating = false
         this.back = back
         this.front = front
         this.isClosed = true
@@ -51,6 +52,7 @@ export default class Card extends Phaser.Group {
     }
 
     turnOn(sound) {
+        this.isAnimating = true
         this.front.scale.x = 0
         this.front.visible = true
 
@@ -61,6 +63,7 @@ export default class Card extends Phaser.Group {
         front.onComplete.addOnce(() => { this.back.visible = false }, this);
         back.chain(front)
         back.start();
+        back.onComplete.addOnce(() => { this.isAnimating = false }, this);
         this.isClosed = false
 
         if (sound) {
@@ -72,7 +75,7 @@ export default class Card extends Phaser.Group {
     turnOff() {
         this.back.scale.x = 0
         this.back.visible = true
-
+        this.isAnimating = true
         let front = otsimo.game.add.tween(this.front.scale)
             .to({ x: 0 }, otsimo.kv.game.card_turnoff_duration / 2, Phaser.Easing.Sinusoidal.In);
         let back = otsimo.game.add.tween(this.back.scale)
@@ -80,6 +83,7 @@ export default class Card extends Phaser.Group {
         back.onComplete.addOnce(() => { this.front.visible = false }, this);
         front.chain(back)
         front.start();
+        front.onComplete.addOnce(() => { this.isAnimating = false }, this);
 
         this.isClosed = true
         return otsimo.kv.game.card_turnoff_duration;
@@ -94,11 +98,14 @@ export default class Card extends Phaser.Group {
     }
 
     collect() {
+        this.isAnimating = true
+
         let front = otsimo.game.add.tween(this)
             .to({ y: this.y - 75 }, otsimo.kv.game.card_collect_duration, Phaser.Easing.Cubic.Out)
             .to({ y: this.y }, otsimo.kv.game.card_collect_duration, Phaser.Easing.Cubic.In)
         front.onComplete.addOnce(() => {
             this.emitStars({ x: this.worldPosition.x, y: this.worldPosition.y })
+            this.isAnimating = false
         }, this);
         front.start();
         return otsimo.kv.game.card_collect_duration * 2
