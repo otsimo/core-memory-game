@@ -157,8 +157,11 @@ export default class Scene {
         console.log("returning card: ", this.deck.cards[randNum]);
         console.log("opened cards: ", this.deck.openedCards);
         console.log("checking", this.deck.cards[randNum] in this.deck.openedCards);
-        if (this.deck.cards[randNum] in this.deck.openedCards) {
-            randNum = Math.floor(Math.random() * this.deck.cards.length);
+        if (this.deck.openedCards.length > 0) {
+            while (this.deck.cards[randNum].item.kind == this.deck.openedCards[0].item.kind) {
+                console.log("one of the opened cards or the same kind of it is random");
+                randNum = Math.floor(Math.random() * this.deck.cards.length);
+            }
         }
 
         return this.deck.cards[randNum];
