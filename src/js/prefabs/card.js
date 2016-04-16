@@ -73,6 +73,7 @@ export default class Card extends Phaser.Group {
     }
 
     turnOff() {
+        console.log("turning of the card");
         this.back.scale.x = 0
         this.back.visible = true
         this.isAnimating = true
@@ -91,13 +92,14 @@ export default class Card extends Phaser.Group {
     
     turnOnOff() {
         this.front.visible = true;
-        this.front.scale.x = 0
+        this.front.scale.x = 0;
         this.isAnimating = true;
         console.log("turnOnOff?");
         let back = otsimo.game.add.tween(this.back.scale)
             .to({ x: 0 }, otsimo.kv.game.card_hide_duration, Phaser.Easing.Sinusoidal.In, false);
         let front = otsimo.game.add.tween(this.front.scale)
             .to({ x: 1 }, otsimo.kv.game.card_show_duration, Phaser.Easing.Sinusoidal.Out, false);
+        this.back.scale.x = 0;
         let f = otsimo.game.add.tween(this.front.scale)
             .to({ x: 0 }, otsimo.kv.game.card_turnoff_duration / 2, Phaser.Easing.Sinusoidal.In, false, 500);
         let b = otsimo.game.add.tween(this.back.scale)
