@@ -145,10 +145,24 @@ export default class Scene {
         }
         this.killTimer();
         console.log("showing hint");
-        let randCard = this.randomOnScene();
-        randCard.turnOn(false);
-        otsimo.game.time.events.add(Phaser.Timer.SECOND, randCard.turnOff, randCard);
-        otsimo.game.time.events.add(Phaser.Timer.SECOND, this.createTimer, this);
+        console.log(otsimo.settings.hint_type);
+        switch (otsimo.settings.hint_type) {
+            case ("single_card"):
+                let randCard = this.randomOnScene();
+                randCard.turnOn(false);
+                otsimo.game.time.events.add(Phaser.Timer.SECOND, randCard.turnOff, randCard);
+                otsimo.game.time.events.add(Phaser.Timer.SECOND, this.createTimer, this);
+            case ("all_cards"):
+                console.log("items on DECK: ", this.deck.cards);
+                for (let i of this.deck.cards) {
+                    if ((this.deck.openedCards.length > 0) && i.item.id == this.deck.openedCards[0].item.id) {
+                        continue;
+                    } else {
+                        i.turnOnOff();
+                    }
+                }
+                otsimo.game.time.events.add(Phaser.Timer.SECOND, this.createTimer, this);
+        }
     }
 
     randomOnScene () {

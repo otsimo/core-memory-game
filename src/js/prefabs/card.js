@@ -88,6 +88,28 @@ export default class Card extends Phaser.Group {
         this.isClosed = true
         return otsimo.kv.game.card_turnoff_duration;
     }
+    
+    turnOnOff() {
+        this.front.visible = true;
+        this.front.scale.x = 0
+        this.isAnimating = true;
+        console.log("turnOnOff?");
+        let back = otsimo.game.add.tween(this.back.scale)
+            .to({ x: 0 }, otsimo.kv.game.card_hide_duration, Phaser.Easing.Sinusoidal.In, false);
+        let front = otsimo.game.add.tween(this.front.scale)
+            .to({ x: 1 }, otsimo.kv.game.card_show_duration, Phaser.Easing.Sinusoidal.Out, false);
+        let f = otsimo.game.add.tween(this.front.scale)
+            .to({ x: 0 }, otsimo.kv.game.card_turnoff_duration / 2, Phaser.Easing.Sinusoidal.In, false, 500);
+        let b = otsimo.game.add.tween(this.back.scale)
+            .to({ x: 1 }, otsimo.kv.game.card_turnoff_duration / 2, Phaser.Easing.Sinusoidal.Out, false);
+        b.onComplete.addOnce(() => { this.front.visible = false }, this);
+        b.onComplete.addOnce(() => { this.back.visible = true }, this);
+        f.onComplete.addOnce(() => { this.isAnimating = false }, this);
+        back.chain(front);
+        front.chain(f);
+        f.chain(b);
+        back.start();
+    }
 
     toggle() {
         if (this.isClosed) {

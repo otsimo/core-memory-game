@@ -8,6 +8,11 @@
             "type": "boolean",
             "default": true
         },
+        "hint_type": {
+            "id": "hint_type",
+            "type": "string",
+            "default": "all_cards"
+        },
         "hint_duration": {
             "id": "hint_duration",
             "type": "integer",
