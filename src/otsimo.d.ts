@@ -36,12 +36,21 @@ interface OtsimoGame {
     scene_leave_duration: number;
 
     balloon_options: any;
+    balloon_sound: string;
 
     card_hide_duration: number;
     card_show_duration: number;
     card_turnoff_duration: number;
     card_collect_duration: number;
 }
+
+interface TextShadow {
+    x: number;
+    y: number;
+    color: string;
+    blur: number;
+}
+
 
 interface DeckLayout {
     id: string;
@@ -59,13 +68,58 @@ interface KeyValue {
     announceTextStyle: any;
     announceText: string;
     card_backgrounds: Array<string>;
-    deck_colors: Array<DeckItem>;
-    deck_star_colors: Array<DeckItem>;
+
+    custom_announce_color: string;
+    background_image: string;
+    play_background_color: string;
+    home_background_color: string;
+    over_background_color: string;
+    decoration: Array<DecorationItem>;
+    name_shadow: TextShadow;
+    gameNameTextStyle: any;
+    gameNameLayout: XYAnchorLayout;
+    homePlayButton: XYAnchorLayout;
+    game_music: MusicInfo;
 }
 
 interface Manifest {
     unique_name: string;
     version: string;
+    metadata: Array<LanguageMetadata>;
+}
+
+interface GameLayoutAxisEntry {
+    multiplier: number;
+    constant: number;
+}
+
+interface XYAnchorLayout {
+    anchor: Phaser.Point;
+    x: GameLayoutAxisEntry;
+    y: GameLayoutAxisEntry;
+}
+
+interface DecorationItem {
+    image: string;
+    frame: string;
+    anchor: Phaser.Point;
+    x: GameLayoutAxisEntry;
+    y: GameLayoutAxisEntry;
+}
+
+interface MusicInfo {
+    music: string;
+    volume: number;
+    loop: boolean;
+    volume_load_screen: number;
+    volume_home_screen: number;
+    volume_play_screen: number;
+    volume_over_screen: number;
+}
+
+interface LanguageMetadata {
+    language: string;
+    visible_name: string;
 }
 
 declare namespace otsimo {
@@ -81,6 +135,7 @@ declare namespace otsimo {
     var kv: KeyValue;
 
     var game: Phaser.Game;
+    var currentMusic: Phaser.Sound;
 
     function quitgame(): void;
 
