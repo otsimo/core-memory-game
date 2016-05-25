@@ -73,6 +73,13 @@ export default class Card extends Phaser.Group {
     }
 
     turnOff() {
+        if (this.isAnimating || this.back.visible) {
+            console.log("isanimating");
+            let dur = otsimo.kv.game.card_show_duration;
+            self = this;
+            setTimeout(() => self.turnOff(), dur/2);
+            return otsimo.kv.game.card_turnoff_duration;
+        }
         console.log("turning of the card");
         this.back.scale.x = 0
         this.back.visible = true

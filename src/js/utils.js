@@ -6,6 +6,7 @@ function shuffle(o) {
 
 
 function calculateConstraint(constraint) {
+    console.log("constraint: ", constraint);
     let xc = constraint.x.constant | 0;
     let yc = constraint.y.constant | 0;
     let x = constraint.x.multiplier * otsimo.game.width + xc;

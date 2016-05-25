@@ -1,6 +1,5 @@
 import {Randomizer} from "./randomizer"
 import Deck from "./prefabs/deck"
-import TimerManager from "./timerManager"
 
 export default class Scene {
     constructor({delegate, session}) {
@@ -9,7 +8,6 @@ export default class Scene {
         this.random = new Randomizer()
         this.steps = []
         this.step = 0
-        this.timer = new TimerManager();
     }
 
     get step() {
@@ -21,9 +19,7 @@ export default class Scene {
     }
 
     next() {
-        this.timer.stopTimer();
         console.log("next started");
-        console.log("checking timerManager: ", this.timer);
         console.log("step=", this.step, "all", this.steps)
         if (this.step >= otsimo.kv.game.session_step) {
             return false
@@ -56,10 +52,7 @@ export default class Scene {
         }
         if (card1.kind == card2.kind) {
             this.session.correctInput(card1.item,card2.item);
-            this.timer.stopTimer();
             let dur = this.deck.collectCards();
-            this.timer.chain(dur*2, this.createTimer, this);
-            this.timer.begin();
             if (this.deck.remainingCards == 0) {
                 this.gameStep.done = true;
                 let self = this;
@@ -67,35 +60,8 @@ export default class Scene {
             }
         } else {
             this.session.wrongInput(card1.item, card2.item);
-            this.timer.stopTimer();
-            this.createTimer();
             this.deck.closeCards();
         }
-        /*
-        if (this.gameStep.done) {
-            return
-        }
-        if (this.gameStep.answer.kind == card.item.kind) {
-            this.gameStep.done = true
-            let dur = card.highlight()
-            for (let b of this.deck.cards) {
-                if (b.id != card.id) {
-                    this.deck.fadeOffItem(b, dur / 2);
-                }
-            }
-            card.playSound();
-            this.session.correctInput(card.item)
-
-            let self = this
-            setTimeout(() => self.hide(), dur * 4);
-        } else {
-            card.wrongAnswerCount += 1
-            if (card.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
-                this.deck.hideAnItem(card.id)
-            }
-            this.session.wrongInput(card.item, card.wrongAnswerCount)
-        }*/
-        //this.createTimer();
     }
 
     announce(leaveY, leaveTime) {
@@ -117,7 +83,6 @@ export default class Scene {
         setTimeout(() => {
             deck.moveIn();
         }, 1600);
-        otsimo.game.time.events.add(1600 + otsimo.kv.game.scene_enter_duration, this.createTimer, this);
     }
 
     hide() {
@@ -128,7 +93,6 @@ export default class Scene {
         otsimo.game.add.tween(at).to({ y: 0 }, dur / 2, Phaser.Easing.Circular.In, true)
 
         let self = this
-        this.session.incrementHint();
         this.session.addScore();
         setTimeout(() => {
             self.deck.destroy(true)
@@ -137,45 +101,6 @@ export default class Scene {
                 self.delegate.sceneEnded()
             }
         }, dur);
-    }
-
-    createTimer () {
-        console.log("creating timer");
-        this.timer.chain(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
-        this.timer.begin();
-    }
-
-    showHint() {
-        console.log("showHint called");
-        this.session.hintStep++;
-        if (!otsimo.settings.show_hint) {
-            console.log("show hint is false");
-            return;
-        }
-        this.timer.stopTimer();
-        console.log("showing hint");
-        console.log(otsimo.settings.hint_type);
-        switch (otsimo.settings.hint_type) {
-            case ("single_card"):
-                let randCard = this.randomOnScene();
-                randCard.turnOn(false);
-                this.timer.chain(Phaser.Timer.SECOND, randCard.turnOff, randCard);
-                this.timer.chain(Phaser.Timer.SECOND, this.createTimer, this);
-                this.timer.begin();
-                break;
-            case ("all_cards"):
-                console.log("returning");
-                return;
-                for (let i of this.deck.cards) {
-                    if ((this.deck.openedCards.length > 0) && i.item.id == this.deck.openedCards[0].item.id) {
-                        continue;
-                    } else {
-                        i.turnOnOff();
-                    }
-                }
-                otsimo.game.time.events.add(Phaser.Timer.SECOND, this.createTimer, this);
-                break;
-        }
     }
 
     randomOnScene () {

@@ -27,6 +27,7 @@ export default class Home extends Phaser.State {
         }
 
         let cp = calculateConstraint(otsimo.kv.homePlayButton || defaultPlayButton);
+        console.log("passed");
         let home = this.game.add.button(cp.x, cp.y, 'playButton', this.playAction, this, 2, 1, 0);
         home.anchor.set(cp.anchor.x, cp.anchor.y);
 
