@@ -69,6 +69,8 @@ export default class Card extends Phaser.Group {
         if (sound) {
             this.playSound();
         }
+        console.log("removetimer called from card");
+        this.hint.removeTimer();
         return otsimo.kv.game.card_hide_duration + otsimo.kv.game.card_show_duration
     }
 
@@ -97,6 +99,9 @@ export default class Card extends Phaser.Group {
         return otsimo.kv.game.card_turnoff_duration;
     }
     
+    
+    // turnOnOff returns the whole duration
+    
     turnOnOff() {
         this.front.visible = true;
         this.front.scale.x = 0;
@@ -118,10 +123,13 @@ export default class Card extends Phaser.Group {
         front.chain(f);
         f.chain(b);
         back.start();
+        return otsimo.kv.game.card_hide_duration + otsimo.kv.game.card_show_duration + otsimo.kv.game.card_turnoff_duration + 500;
     }
 
     toggle() {
         if (this.isClosed) {
+            console.log("removetimer called from card");
+            this.hint.removeTimer();
             return this.turnOn()
         } else {
             return this.turnOff()
@@ -155,5 +163,9 @@ export default class Card extends Phaser.Group {
             a.tint = c;
         }, this, true, this.front.tint);
         this.destroy(true);
+    }
+    
+    addHint(hint) {
+        this.hint = hint;
     }
 }

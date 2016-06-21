@@ -129,6 +129,7 @@
         }
     ],
     "game": {
+        "hint_type": "switch_one",
         "session_step": 10,
         "step_score": 5,
         "deck1": "deck_colors",

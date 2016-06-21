@@ -18,6 +18,7 @@ export default class Deck extends Phaser.Group {
 
         let sx = layout.width / 2.0
         let sy = layout.height / 2.0
+        
 
         for (let i = 0; i < this.items.length; i++) {
             let item = this.items[i];
@@ -28,7 +29,7 @@ export default class Deck extends Phaser.Group {
                 y: sy + ii.y,
                 item: item,
                 background: this.cardBackground,
-                anchor: layout.cell_anchor
+                anchor: layout.cell_anchor,
             });
             card.onInputDown.add(this.clickListener, { card: card, deck: this });
 
@@ -107,5 +108,13 @@ export default class Deck extends Phaser.Group {
         }
         this.openedCards = [];
         return dur;
+    }
+    
+    addHint(hint) {
+        this.hint = hint;
+        for (let i = 0; i < this.cards.length; i++) {
+            let card = this.cards[i];
+            card.addHint(hint);
+        }
     }
 }

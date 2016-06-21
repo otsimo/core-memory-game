@@ -1,13 +1,14 @@
 import {Randomizer} from "./randomizer"
 import Deck from "./prefabs/deck"
+import Hint from "./prefabs/hint"
 
 export default class Scene {
     constructor({delegate, session}) {
-        this.delegate = delegate
-        this.session = session
-        this.random = new Randomizer()
-        this.steps = []
-        this.step = 0
+        this.delegate = delegate;
+        this.session = session;
+        this.random = new Randomizer();
+        this.steps = [];
+        this.step = 0;
     }
 
     get step() {
@@ -34,8 +35,15 @@ export default class Scene {
                 layout: next.layout.id,
                 cardBackground: next.deck
             })
+            
+            let hint = new Hint({
+                game: otsimo.game,
+                deck : deck
+            })
 
             this.deck = deck;
+            this.hint = hint;
+            this.deck.addHint(this.hint);
             this.gameStep = next;
 
             deck.cardsOpened.add(this.onCardsSelected, this)
@@ -43,6 +51,7 @@ export default class Scene {
 
             this.session.startStep();
         });
+        this.hint.call(1600);
         return true;
     }
 
@@ -57,11 +66,14 @@ export default class Scene {
                 this.gameStep.done = true;
                 let self = this;
                 setTimeout(() => self.hide(), dur * 2);
+                this.hint.call(dur*2);
             }
         } else {
             this.session.wrongInput(card1.item, card2.item);
             this.deck.closeCards();
+            this.hint.call(otsimo.kv.game.card_turnoff_duration)
         }
+        
     }
 
     announce(leaveY, leaveTime) {
@@ -86,6 +98,8 @@ export default class Scene {
     }
 
     hide() {
+        this.hint.removeTimer();
+        this.hint.kill();
         let at = this.announceText;
         let dur = otsimo.kv.game.scene_leave_duration
         this.deck.moveOut();
