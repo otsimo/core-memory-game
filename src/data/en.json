@@ -1,0 +1,461 @@
+{
+    "settings/show_hint/title": "Show Hint",
+    "settings/show_hint/description": "Show hint",
+    "settings/hint_duration/title": "Hint Duration",
+    "settings/hint_duration/description": "Hint duration",
+    "loadingText": "Loading...",
+    "loadingFont": "60px Arial",
+    "loadingBackground": "#18B9F2",
+    "loadingColor": "#fff",
+    "announceText": "Match cards with same colors",
+    "announceTextStyle": {
+        "strokeThickness": 4,
+        "stroke": "#FFFFFF",
+        "font": "65px Arial",
+        "align": "center"
+    },
+    "preload": [
+        {
+            "name": "playButton",
+            "type": "image",
+            "path": "img/en/play.png"
+        },
+        {
+            "name": "back",
+            "type": "image",
+            "path": "img/back.png"
+        },
+        {
+            "name": "white_star",
+            "type": "image",
+            "path": "img/white_star.png"
+        },
+        {
+            "name": "white_box",
+            "type": "image",
+            "path": "img/white_box.png"
+        },
+        {
+            "name": "hand",
+            "type": "image",
+            "path": "img/hand.png"
+        },
+        {
+            "name": "congratulations",
+            "type": "audio",
+            "path": "audio/en/congratulations.wav"
+        },
+        {
+            "name": "applause",
+            "type": "audio",
+            "path": "audio/applause.wav"
+        },
+        {
+            "name": "welcome",
+            "type": "audio",
+            "path": "audio/en/welcome.wav"
+        },
+        {
+            "name": "try_again",
+            "type": "audio",
+            "path": "audio/en/try_again.wav"
+        },
+        {
+            "name": "ballon_body",
+            "type": "image",
+            "path": "img/ballon/ballon_body.png"
+        },
+        {
+            "name": "ballon_light",
+            "type": "image",
+            "path": "img/ballon/ballon_light.png"
+        },
+        {
+            "name": "ballon_rope",
+            "type": "image",
+            "path": "img/ballon/ballon_rope.png"
+        },
+        {
+            "name": "ballon_star",
+            "type": "image",
+            "path": "img/ballon/ballon_star.png"
+        },
+        {
+            "name": "card-bg-1",
+            "type": "image",
+            "path": "img/card/card-bg-1.png"
+        },
+        {
+            "name": "card-bg-2",
+            "type": "image",
+            "path": "img/card/card-bg-2.png"
+        },
+        {
+            "name": "blue_audio",
+            "type": "audio",
+            "path": "audio/en/blue.mp3"
+        }
+    ],
+    "game": {
+        "session_step": 10,
+        "step_score": 5,
+        "deck1": "deck_colors",
+        "deck2": "deck_star_colors",
+        "scene_enter_duration": 500,
+        "scene_leave_duration": 500,
+        "balloon_options": {
+            "count": 5,
+            "luminosity": "bright"
+        },
+        "card_hide_duration": 75,
+        "card_show_duration": 125,
+        "card_turnoff_duration": 125,
+        "card_collect_duration": 300
+    },
+    "layouts": [
+        {
+            "id": "4x1",
+            "num_of_kinds": 2,
+            "width": 648,
+            "height": 172,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": -255,
+                    "y": 0
+                },
+                {
+                    "x": -85,
+                    "y": 0
+                },
+                {
+                    "x": 85,
+                    "y": 0
+                },
+                {
+                    "x": 255,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "1+2+1",
+            "num_of_kinds": 2,
+            "width": 478,
+            "height": 376,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": -170,
+                    "y": 0
+                },
+                {
+                    "x": 0,
+                    "y": -102
+                },
+                {
+                    "x": 0,
+                    "y": 102
+                },
+                {
+                    "x": 170,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "id": "2x2",
+            "num_of_kinds": 2,
+            "width": 308,
+            "height": 376,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": -85,
+                    "y": -102
+                },
+                {
+                    "x": 85,
+                    "y": -102
+                },
+                {
+                    "x": -85,
+                    "y": 102
+                },
+                {
+                    "x": 85,
+                    "y": 102
+                }
+            ]
+        },
+        {
+            "id": "2+2",
+            "num_of_kinds": 2,
+            "width": 584,
+            "height": 344,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": -239,
+                    "y": -86
+                },
+                {
+                    "x": -101,
+                    "y": 86
+                },
+                {
+                    "x": 101,
+                    "y": -86
+                },
+                {
+                    "x": 239,
+                    "y": 86
+                }
+            ]
+        },
+        {
+            "id": "1+2+3",
+            "num_of_kinds": 3,
+            "width": 478,
+            "height": 580,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": 0,
+                    "y": -204
+                },
+                {
+                    "x": -85,
+                    "y": 0
+                },
+                {
+                    "x": 85,
+                    "y": 0
+                },
+                {
+                    "x": -170,
+                    "y": 204
+                },
+                {
+                    "x": 0,
+                    "y": 204
+                },
+                {
+                    "x": 170,
+                    "y": 204
+                }
+            ]
+        },
+        {
+            "id": "3*2",
+            "num_of_kinds": 3,
+            "width": 478,
+            "height": 408,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": -170,
+                    "y": -102
+                },
+                {
+                    "x": 0,
+                    "y": -102
+                },
+                {
+                    "x": 170,
+                    "y": -102
+                },
+                {
+                    "x": -170,
+                    "y": 102
+                },
+                {
+                    "x": 0,
+                    "y": 102
+                },
+                {
+                    "x": 170,
+                    "y": 102
+                }
+            ]
+        },
+        {
+            "id": "2+2+2",
+            "num_of_kinds": 3,
+            "width": 478,
+            "height": 580,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": -170,
+                    "y": -204
+                },
+                {
+                    "x": 170,
+                    "y": -204
+                },
+                {
+                    "x": -170,
+                    "y": 0
+                },
+                {
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "x": 170,
+                    "y": 0
+                },
+                {
+                    "x": 0,
+                    "y": 204
+                }
+            ]
+        },
+        {
+            "id": "1+2+2+1",
+            "num_of_kinds": 3,
+            "width": 648,
+            "height": 580,
+            "cell_anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "items": [
+                {
+                    "x": -255,
+                    "y": -204
+                },
+                {
+                    "x": -85,
+                    "y": -204
+                },
+                {
+                    "x": -85,
+                    "y": 0
+                },
+                {
+                    "x": 85,
+                    "y": 0
+                },
+                {
+                    "x": 85,
+                    "y": 204
+                },
+                {
+                    "x": 255,
+                    "y": 204
+                }
+            ]
+        }
+    ],
+    "card_backgrounds": [
+        "card-bg-1",
+        "card-bg-2"
+    ],
+    "deck_colors": [
+        {
+            "id": "blue",
+            "kind": "blue",
+            "audio": "blue_audio",
+            "tint": "0x0000FF",
+            "text": "Blue",
+            "image": "white_box"
+        },
+        {
+            "id": "red",
+            "kind": "red",
+            "audio": "blue_audio",
+            "tint": "0xFF0000",
+            "text": "Red",
+            "image": "white_box"
+        },
+        {
+            "id": "yellow",
+            "kind": "yellow",
+            "audio": "blue_audio",
+            "tint": "0xFFFF00",
+            "text": "Yellow",
+            "image": "white_box"
+        },
+        {
+            "id": "green",
+            "kind": "green",
+            "audio": "blue_audio",
+            "tint": "0x00FF00",
+            "text": "Green",
+            "image": "white_box"
+        },
+        {
+            "id": "black",
+            "kind": "black",
+            "audio": "blue_audio",
+            "tint": "0x000000",
+            "text": "Black",
+            "image": "white_box"
+        }
+    ],
+    "deck_star_colors": [
+        {
+            "id": "blue_star",
+            "kind": "blue",
+            "audio": "blue_audio",
+            "tint": "0x0000FF",
+            "text": "Blue",
+            "image": "white_star"
+        },
+        {
+            "id": "red_star",
+            "kind": "red",
+            "audio": "blue_audio",
+            "tint": "0xFF0000",
+            "text": "Red",
+            "image": "white_star"
+        },
+        {
+            "id": "yellow_star",
+            "kind": "yellow",
+            "audio": "blue_audio",
+            "tint": "0xFFFF00",
+            "text": "Yellow",
+            "image": "white_star"
+        },
+        {
+            "id": "green_star",
+            "kind": "green",
+            "audio": "blue_audio",
+            "tint": "0x00FF00",
+            "text": "Green",
+            "image": "white_star"
+        },
+        {
+            "id": "black_star",
+            "kind": "black",
+            "audio": "blue_audio",
+            "tint": "0x000000",
+            "text": "Black",
+            "image": "white_star"
+        }
+    ]
+}
